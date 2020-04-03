@@ -3,3 +3,7 @@
 */www
 */platform
 *.css*
+.env
+
+*.dev.*
+*.prod.*
