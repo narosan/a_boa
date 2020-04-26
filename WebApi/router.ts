@@ -1,6 +1,7 @@
 import { Router } from "express";
 import UserHandler from "./handlers/UserHandler";
 import LoginHandler from "./handlers/LoginHandler";
+import LoginController from "./controllers/LoginController";
 
 const router = Router({
     caseSensitive: false,
@@ -8,16 +9,8 @@ const router = Router({
     strict: false
 });
 
-router.all('webapi/*', (req, res, next) => {
-    res.json(req.headers);
-});
-router.all('webapi/login', LoginHandler.singIn);
-router.get('webapi/users', UserHandler.getAll);
-router.get('webapi/user/:id', UserHandler.getById);
-
-router.get('/', (req) => {
-    console.log('teste !')
-    console.log('req', req)
-})
+router.all('/webapi/login', LoginHandler.singIn);
+router.get('/webapi/users', UserHandler.getAll);
+router.get('/webapi/user/:id', UserHandler.getById);
 
 export default router;

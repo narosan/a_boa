@@ -24,6 +24,11 @@
     "url": "https://github.com/narosan/a_boa/issues"
   },
   "homepage": "https://github.com/narosan/a_boa#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run-script test"
+    }
+  },
   "devDependencies": {
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
@@ -39,6 +44,7 @@
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.4",
     "@types/jest": "^25.2.1",
+    "@types/jsonwebtoken": "^8.3.9",
     "@types/mongoose": "^5.7.8",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",

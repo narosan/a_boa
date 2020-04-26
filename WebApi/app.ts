@@ -13,7 +13,6 @@ class App {
         this.middleware();
         // this.database();
         this.routes();
-        console.log('MONGODB_URL', process.env.MONGODB_URL)
     }
 
     private middleware(): void {
