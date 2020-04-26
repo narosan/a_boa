@@ -3,7 +3,7 @@ import UserController from "../controllers/UserController";
 
 export default class UserHandler {
     static async getById(req, res, next) {
-        if (!req.body) return res(new Forbidden());
+        if (!req.body) return res.json(new Forbidden());
         return res.json(await UserController.getById(res.body.id));
     }
 
