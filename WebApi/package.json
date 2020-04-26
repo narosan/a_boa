@@ -5,7 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "dev": "nodemon ./index.ts",
-    "build": "sucrase ./ -d ./dist --transforms typescript, imports"
+    "build": "sucrase ./ -d ./dist --transforms typescript, imports",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
