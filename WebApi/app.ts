@@ -1,8 +1,8 @@
 import * as express from 'express';
-import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as helmet from 'helmet';
 import * as dotenv from 'dotenv';
+import * as mysql from 'mysql';
 import router from "./router";
 
 class App {
@@ -11,7 +11,7 @@ class App {
     constructor() {
         this.express = express();
         this.middleware();
-        // this.database();
+        this.database();
         this.routes();
     }
 
@@ -26,14 +26,20 @@ class App {
     }
 
     private async database() {
-        try {
-            await mongoose.connect(process.env.MONGODB_URL, {
-                autoReconnect: true,
-                connectTimeoutMS: +process.env.MONGODB_TIMEOUT,
-            });
-        } catch (error) {
-            console.error(`Erro ao conectar com DB:: ${JSON.stringify(error)}`);
-        }
+        const connection = mysql.createConnection({
+            host: process.env.AWS_RDS_HOST,
+            port: +process.env.AWS_RDS_PORT,
+            user: process.env.AWS_RDS_USER,
+            password: process.env.AWS_RDS_PASSWORDS,
+            timeout: +process.env.AWS_RDS_TIMOUT
+        });
+        connection.connect((err) => {
+            if (err) {
+                console.error('error connecting: ' + err.stack);
+                return;
+              }
+              console.log('connected as id ' + connection.threadId);
+        });
     }
 
     private routes(): void {
