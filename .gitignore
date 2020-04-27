@@ -7,3 +7,6 @@
 
 *.dev.*
 *.prod.*
+
+*/plugins
+*/resources

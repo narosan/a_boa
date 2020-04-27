@@ -1,5 +1,6 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit } from '@angular/core';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +10,25 @@ import { Component, OnInit } from '@angular/core';
 export class HomePage implements OnInit {
   private map: google.maps.Map;
 
-  constructor() { }
+  constructor(
+    private geolocation: Geolocation
+  ) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
+  
   ionViewDidEnter() {
     this.initMap();
   }
 
-  private initMap() {
+  private async getLocation() {
+    const geolocation = await this.geolocation.getCurrentPosition();
+    return { lat: geolocation.coords.latitude, lng: geolocation.coords.longitude }
+  }
+
+  private async initMap() {
+    const location = await this.getLocation();
     const mapOptions: google.maps.MapOptions = {
-      center: {lat: -34.397, lng: 150.644},
+      center: location,
       zoom: 8,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
