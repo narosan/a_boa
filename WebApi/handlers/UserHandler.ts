@@ -2,12 +2,12 @@ import { Forbidden } from "../util/error"
 import UserController from "../controllers/UserController";
 
 export default class UserHandler {
-    static async getById(req, res, next) {
+    static async getById(req, res) {
         if (!req.body) return res.json(new Forbidden());
-        return res.json(await UserController.getById(res.body.id));
+        return res.json();
     }
 
-    static async getAll(req, res, next) {
-        return res.json(await UserController.getAll());
+    static async getAll(req, res) {
+        return res.json();
     }
 }

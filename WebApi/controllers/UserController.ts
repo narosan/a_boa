@@ -1,9 +1,6 @@
-export default class UserController {
-    static async getAll() {
-        return ["teste"];
-    }
+import { DatabaseController } from "./DatabaseController";
+import { User } from "../models/User";
 
-    static async getById(id: Number) {
+export default class UserController extends DatabaseController<User> {
 
-    }
 }
