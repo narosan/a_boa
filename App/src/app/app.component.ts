@@ -59,6 +59,7 @@ export class AppComponent implements OnInit {
       this.splashScreen.hide();
     });
   }
+  // teste coment
 
   ngOnInit() {
     const path = window.location.pathname.split('folder/')[1];
