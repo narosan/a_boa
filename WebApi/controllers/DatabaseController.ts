@@ -4,7 +4,7 @@ import { DatabaseModel } from '../models/DatabaseModel';
 
 export abstract class DatabaseController<T extends DatabaseModel> {
 
-    private connection: mysql.Connection;
+    public connection: mysql.Connection;
 
     constructor() {
         this.connection = mysql.createConnection({
