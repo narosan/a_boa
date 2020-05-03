@@ -1,12 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 const ENV = environment;
-
-@Injectable({
-  providedIn: 'root'
-})
 export abstract class HttpProviderService<T> {
 
   constructor(
@@ -23,5 +18,10 @@ export abstract class HttpProviderService<T> {
     const header = new HttpHeaders();
     header.append('Access-Control-Allow-Origin', '*');
     return header;
+  }
+
+  post(model: T) {
+    const headers = this.getHeader();
+    return this.http.post(`${ENV.API_URI}${this.endpoint}`, model, { headers });
   }
 }
