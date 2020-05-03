@@ -1,0 +1,19 @@
+<div class="boa__configDeslogado-container">
+  <div class="boa__configDeslogado-content">
+    <form class="boa__configDeslogado-form" [formGroup]="singInForm" (ngSubmit)="submitSingIn()">
+      <ion-item class="boa__configDeslogado-item">
+        <ion-label class="boa__configDeslogado-label">Login</ion-label>
+        <ion-input class="boa__configDeslogado-input"></ion-input>
+      </ion-item>
+      <ion-item class="boa__configDeslogado-item">
+        <ion-label class="boa__configDeslogado-label">Senha</ion-label>
+        <ion-input class="boa__configDeslogado-input"></ion-input>
+      </ion-item>
+    </form>
+    <div class="boa__configDelogado-groupButton">
+      <ion-button color="primary" (click)="singInWithFacebook()">
+        Facebook
+      </ion-button>
+    </div>
+  </div>
+</div>

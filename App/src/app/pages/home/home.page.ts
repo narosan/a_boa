@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
 
   private async setMarkersToMap() {
     const addresses = (await this.getEvents()) as Endereco[];
-    for (const address of addresses) {
+    for (const address of addresses || [] ) {
       const marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: {

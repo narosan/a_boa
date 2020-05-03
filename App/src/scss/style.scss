@@ -1,0 +1,19 @@
+@import 'variables';
+@import 'mixin';
+
+.boa__configLogado-container {
+    height: 100%;
+    padding: 15px;
+    .boa__configLogado-headerRow {
+        @include flex;
+    }
+}
+
+.boa__configDeslogado-container {
+    @include flex;
+    height: 100%;
+    padding: 15px;
+    .boa__configDeslogado-content {
+
+    }
+}

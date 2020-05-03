@@ -1,0 +1,8 @@
+<ion-content>
+  <div *ngIf="possuiAutenticacao;else semAutenticacao">
+    <app-config-logado></app-config-logado>
+  </div>
+  <ng-template #semAutenticacao>
+    <app-config-deslogado></app-config-deslogado>
+  </ng-template>
+</ion-content>
