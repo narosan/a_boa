@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from 'src/app/services/toast.service';
+import { User } from 'src/app/model/User';
+import { LoginProviderService } from 'src/app/services/api/login-provider.service';
+import { HttpResponseBase } from '@angular/common/http';
 
 @Component({
   selector: 'app-config-deslogado',
@@ -10,8 +14,12 @@ export class ConfigDeslogadoComponent implements OnInit {
 
   public singInForm: FormGroup;
 
+  public user: User;
+
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastService: ToastService,
+    private loginProvider: LoginProviderService
   ) { }
 
   ngOnInit() {
@@ -20,13 +28,15 @@ export class ConfigDeslogadoComponent implements OnInit {
 
   buildForm() {
     this.singInForm = this.formBuilder.group({
-      user: ['', [Validators.required, Validators.maxLength(16)]],
+      login: ['', [Validators.required, Validators.maxLength(16)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]]
     });
   }
 
-  public submitSingIn() {
-    
+  public submitSingIn(form: FormGroup) {
+    if (form.invalid) return;
+    this.user = form.value;
+    this.loginProvider.post(this.user).toPromise(this.handlerLogin.bind(this));
   }
 
   singInWithFacebook() {
@@ -34,6 +44,23 @@ export class ConfigDeslogadoComponent implements OnInit {
   }
 
   responseFacebookSingIn(response: fb.StatusResponse) {
-    console.log(response);
+    if (response.status === 'connected') this.doLoginRequestWithFacebook(response.authResponse);
+    else this.toastService.error('Ocorreu um problema com os serviços do Facebook, tente novamente mais tarde.');
+  }
+
+  doLoginRequestWithFacebook(auth: fb.AuthResponse) {
+    FB.api('/me', this.getFacebookUserProperties.bind(this));
+    this.user.facebookUser.id = +auth.userID;
+    this.user.facebookUser.accessToken = auth.accessToken;
+    this.user.facebookUser.expiresIn = auth.expiresIn;
+    this.loginProvider.post(this.user).toPromise(this.handlerLogin.bind(this));
+  }
+
+  getFacebookUserProperties(data) {
+    this.user.nome = data.name;
+  }
+
+  handlerLogin(response) {
+    console.log('response', response);
   }
 }
