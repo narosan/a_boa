@@ -43,4 +43,22 @@ export abstract class DatabaseController<T extends DatabaseModel> {
             });
         });
     }
+
+    insert(model: T): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            let SQL = ` INSERT INTO ${model.table} (${Object.keys(model).join(',')}) VALUES (`;
+            
+            for (const value of Object.values(model)) {
+                if (typeof value === 'number') SQL += `${+value},`;
+                else SQL += `${value},`
+            }
+
+            SQL = `${SQL.substring(0, SQL.length - 1)});`
+
+            this.connection.query(SQL, (err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            });
+        });
+    }
 }
