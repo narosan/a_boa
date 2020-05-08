@@ -10,7 +10,8 @@ const router = Router({
     strict: false
 });
 
-router.all('/webapi/login', LoginHandler.singIn);
+router.all('/webapi/login', async (req, res) => new LoginHandler().singIn(req, res));
+router.all('/webapi/login-facebook', async (req, res) => new LoginHandler().verifyFacebook(req, res))
 router.get('/webapi/users', UserHandler.getAll);
 router.get('/webapi/user/:id', UserHandler.getById);
 
