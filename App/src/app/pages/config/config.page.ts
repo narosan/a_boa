@@ -15,6 +15,7 @@ export class ConfigPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
   }
 
   ionViewDidEnter() {

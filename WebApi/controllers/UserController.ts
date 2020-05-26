@@ -16,11 +16,11 @@ export default class UserController extends DatabaseController<User> {
 
     verifyUserLogin(user: User): Promise<User> {
         return new Promise<User>((resolve, reject) => {
-            const SQL = `   SELECT * FROM user 
-                            WHERE login = '${user.login.trim()}' AND password = '${user.password}'; `;
+            const SQL = `SELECT * FROM user 
+            WHERE login = '${user.login.trim()}' AND password = MD5('${user.password}'); `;
             this.connection.query(SQL, (err, result) => {
                 if (err) reject(err);
-                resolve(result);
+                resolve(result[0]);
             });
         });
     }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/services/toast.service';
 import { User } from 'src/app/model/User';
 import { LoginProviderService } from 'src/app/services/api/login-provider.service';
-import { HttpResponseBase } from '@angular/common/http';
+import { LocalService } from 'src/app/services/database/local.service';
 
 @Component({
   selector: 'app-config-deslogado',
@@ -19,7 +19,8 @@ export class ConfigDeslogadoComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    private loginProvider: LoginProviderService
+    private loginProvider: LoginProviderService,
+    private localService: LocalService
   ) { }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class ConfigDeslogadoComponent implements OnInit {
   }
 
   doLoginRequestWithFacebook(auth: fb.AuthResponse) {
-    FB.api('/me', this.getFacebookUserProperties.bind(this));
+    FB.api(`/${auth.userID}?fields=email,name,birthday`, this.getFacebookUserProperties.bind(this));
     this.user.facebookUser.id = +auth.userID;
     this.user.facebookUser.accessToken = auth.accessToken;
     this.user.facebookUser.expiresIn = auth.expiresIn;
@@ -57,10 +58,13 @@ export class ConfigDeslogadoComponent implements OnInit {
   }
 
   getFacebookUserProperties(data) {
+    this.user.email = data.email;
+    this.user.dataNasc = data.birthday;
     this.user.nome = data.name;
   }
 
   handlerLogin(response) {
     console.log('response', response);
+    // this.localService.setUser = response;
   }
 }

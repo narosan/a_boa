@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@ionic-native/camera": "^5.26.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/geolocation": "^5.24.0",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -28,7 +29,9 @@
     "@types/facebook-js-sdk": "^3.3.0",
     "cordova": "^9.0.0",
     "cordova-ios": "5.1.1",
+    "cordova-plugin-camera": "^4.1.0",
     "core-js": "^2.5.4",
+    "qrcode": "^1.4.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -76,7 +79,8 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "ios"

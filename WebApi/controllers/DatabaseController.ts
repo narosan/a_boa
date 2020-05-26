@@ -50,7 +50,7 @@ export abstract class DatabaseController<T extends DatabaseModel> {
             
             for (const value of Object.values(model)) {
                 if (typeof value === 'number') SQL += `${+value},`;
-                else SQL += `${value},`
+                else SQL += `'${value}',`
             }
 
             SQL = `${SQL.substring(0, SQL.length - 1)});`

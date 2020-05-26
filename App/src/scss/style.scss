@@ -12,8 +12,13 @@
 .boa__configDeslogado-container {
     @include flex;
     height: 100%;
-    padding: 15px;
+    padding: 50px;
     .boa__configDeslogado-content {
-
+        width: 100%;
+        .boa__configDelogado-groupButton {
+            @include flex($justify-content: space-around, $justify-items: center, $flex-direction: column);
+            margin-top: 5%;
+            height: 20%;
+        }
     }
 }
